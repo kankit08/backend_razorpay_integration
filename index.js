@@ -11,4 +11,26 @@ app.get("/", (req, res) => {
   res.status(200).send("Welcome to Razorpay Payment Gateway");
 });
 
+app.post("/order", async (req, res) => {
+  const amount = req.body.amount;
+
+  //Razopray
+  var instance = new Razorpay({
+    key_id: "YOUR_KEY_ID",
+    key_secret: "YOUR_SECRET",
+  });
+  var options = {
+    amount: amount * 100,
+    currency: "INR",
+    receipt: "order_1",
+  };
+  const myOrder = await instance.orders.create(options);
+
+  res.status(200).json({
+    success: true,
+    amount,
+    order: myOrder,
+  });
+});
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT} 🔥`));
