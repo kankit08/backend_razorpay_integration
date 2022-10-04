@@ -16,8 +16,8 @@ app.post("/order", async (req, res) => {
 
   //Razopray
   var instance = new Razorpay({
-    key_id: "YOUR_KEY_ID",
-    key_secret: "YOUR_SECRET",
+    key_id: process.env.key_id,
+    key_secret: process.env.key_secret,
   });
   var options = {
     amount: amount * 100,
