@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 app.use(express.static("./public"));
 app.use(express.json());
+const { v4: uuidv4 } = require("uuid");
 
 const { PORT } = process.env;
 
@@ -22,7 +23,7 @@ app.post("/order", async (req, res) => {
   var options = {
     amount: amount * 100,
     currency: "INR",
-    receipt: "order_1",
+    receipt: uuidv4(),
   };
   const myOrder = await instance.orders.create(options);
 
